@@ -115,7 +115,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 56
+  m_Constraints: 72
   m_CollisionDetection: 0
 --- !u!114 &6364361095385451563
 MonoBehaviour:
@@ -131,6 +131,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rocketThrust: 1000
   rocketRotation: 100
+  mainEngine: {fileID: 8300000, guid: cdd675768d4891442b8d9e8d6fe8ca72, type: 3}
 --- !u!82 &2102585198
 AudioSource:
   m_ObjectHideFlags: 0
@@ -141,7 +142,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: cdd675768d4891442b8d9e8d6fe8ca72, type: 3}
+  m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
   m_Volume: 0.026
   m_Pitch: 0.33
@@ -239,3 +240,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7080b2fa9a7904a40abde57deaff0cd5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  delayTime: 1
+  explosion: {fileID: 8300000, guid: be8710cb3b73dc448b951e2e5a2f841e, type: 3}
+  finish: {fileID: 8300000, guid: 41e55a2507c6ceb43afe4b744c27a09f, type: 3}
