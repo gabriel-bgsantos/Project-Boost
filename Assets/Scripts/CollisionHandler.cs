@@ -23,12 +23,10 @@ public class CollisionHandler : MonoBehaviour
                 Debug.Log("Start hit");
                 break;
             case "Obstacle":
-                PlaySound(explosion);
                 StartCrashSequence();
                 Debug.Log("Obstacle hit");
                 break;
             case "Finish":
-                PlaySound(finish);
                 StartNextScene();
                 Debug.Log("Finish hit");
                 break;
@@ -53,12 +51,14 @@ public class CollisionHandler : MonoBehaviour
 
     private void StartCrashSequence()
     {
+        PlaySound(explosion);
         GetComponent<Movement>().enabled = false;
         Invoke("ReloadScene", delayTime);
     }
 
     private void StartNextScene()
     {
+        PlaySound(finish);
         GetComponent<Movement>().enabled = false;
         Invoke("LoadNextScene", delayTime);
     }
