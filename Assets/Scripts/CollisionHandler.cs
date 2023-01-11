@@ -31,7 +31,6 @@ public class CollisionHandler : MonoBehaviour
                 Debug.Log("Finish hit");
                 break;
             default:
-                PlaySound(explosion);
                 StartCrashSequence();
                 break;
         }
