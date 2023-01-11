@@ -11,35 +11,41 @@ public class CollisionHandler : MonoBehaviour
 
     AudioSource audioSource;
 
-    private void Start()
-    {
+    bool isTransitioning = false;
 
+    private void Start() 
+    {
+        audioSource = GetComponent<AudioSource>();
     }
 
     private void OnCollisionEnter(Collision other) 
     {
-        switch (other.gameObject.tag){
-             case "Start":
-                Debug.Log("Start hit");
-                break;
-            case "Obstacle":
-                StartCrashSequence();
-                Debug.Log("Obstacle hit");
-                break;
-            case "Finish":
-                StartNextScene();
-                Debug.Log("Finish hit");
-                break;
-            default:
-                StartCrashSequence();
-                break;
+        if (isTransitioning){ 
+            return; //if it is true, do nothing
+        }
+
+        else {
+            switch (other.gameObject.tag){
+                case "Start":
+                    Debug.Log("Start hit");
+                    break;
+                case "Obstacle":
+                    StartCrashSequence();
+                    Debug.Log("Obstacle hit");
+                    break;
+                case "Finish":
+                    StartNextScene();
+                    Debug.Log("Finish hit");
+                    break;
+                default:
+                    StartCrashSequence();
+                    break;
+            }
         }
    }
 
     private void PlaySound(AudioClip soundClip)
     {
-        audioSource = GetComponent<AudioSource>();
-
         if(!audioSource.isPlaying) {
             audioSource.PlayOneShot(soundClip);
         }
@@ -50,13 +56,17 @@ public class CollisionHandler : MonoBehaviour
 
     private void StartCrashSequence()
     {
-        PlaySound(explosion);
+        isTransitioning = true; //do not play collision audio 2 times (disabled switch)
+        audioSource.Stop(); //do not bug the audio, muting it after collision
+        PlaySound(explosion); 
         GetComponent<Movement>().enabled = false;
         Invoke("ReloadScene", delayTime);
     }
 
     private void StartNextScene()
     {
+        isTransitioning = true; //do not play collision audio 2 times (disabled switch)
+        audioSource.Stop(); //do not bug the audio, muting it after collision 
         PlaySound(finish);
         GetComponent<Movement>().enabled = false;
         Invoke("LoadNextScene", delayTime);
