@@ -14,8 +14,6 @@ public class CollisionHandler : MonoBehaviour
     AudioSource audioSource;
 
     bool isTransitioning = false;
-    // var explosionParticles = ParticleSystem.explosionParticles;
-    // var finishParticles = ParticleSystem.finishParticles;
 
     private void Start() 
     {
