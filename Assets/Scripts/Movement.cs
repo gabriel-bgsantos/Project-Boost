@@ -33,44 +33,63 @@ public class Movement : MonoBehaviour
 
     private void ProcessThrust()
     {
-        if(Input.GetKey(KeyCode.Space )){
-            rb.AddRelativeForce(Vector3.up * Time.deltaTime * rocketThrust);
-            if(!mainEngineParticles.isPlaying){
-                mainEngineParticles.Play();
-            }
-            if(!boostAudio.isPlaying){
-                boostAudio.PlayOneShot(mainEngine);
-            }
+        if(Input.GetKey(KeyCode.Space)){
+            StartThrust();
         }
+        
         else{
-            boostAudio.Stop();
-            mainEngineParticles.Stop();
+           StopThrust(); 
         }
     }
 
     private void ProcessRotation()
     {
-        if(Input.GetKey(KeyCode.A)){
-            // transform.Rotate(Vector3.forward * Time.deltaTime * rotationRight); // (0, 0, 1)
-            ApplyRotation(rocketRotation);
-            if(!leftEngineParticles.isPlaying){
-                leftEngineParticles.Play();
-
-            }
+        if(Input.GetKey(KeyCode.D)){
+            RotateLeft();
         }
         
-        else if(Input.GetKey(KeyCode.D)){
-            // transform.Rotate(Vector3.back * Time.deltaTime * rotationLeft); // (0, 0, -1)
-            ApplyRotation(-rocketRotation);
-            if(!rightEngineParticles.isPlaying){
-                rightEngineParticles.Play();
-
-            }
+        else if(Input.GetKey(KeyCode.A)){
+            RotateRight();
         }
         
         else{
-            leftEngineParticles.Stop();
-            rightEngineParticles.Stop();
+            StopRotation();
+        }
+    }
+
+    private void StartThrust()
+    {
+        rb.AddRelativeForce(Vector3.up * Time.deltaTime * rocketThrust); 
+        if(!mainEngineParticles.isPlaying){
+            mainEngineParticles.Play();
+        }
+        
+        if(!boostAudio.isPlaying){
+            boostAudio.PlayOneShot(mainEngine);
+        }
+    }
+
+    private void StopThrust()
+    {
+        boostAudio.Stop();
+        mainEngineParticles.Stop();
+    }
+
+    private void RotateLeft()
+    {
+        // transform.Rotate(Vector3.forward * Time.deltaTime * rotationRight); // (0, 0, 1)
+        ApplyRotation(rocketRotation);
+        if(!rightEngineParticles.isPlaying){
+            rightEngineParticles.Play();        
+        }
+    }
+
+    private void RotateRight()
+    {
+        // transform.Rotate(Vector3.back * Time.deltaTime * rotationLeft); // (0, 0, -1)
+        ApplyRotation(-rocketRotation);
+        if(!leftEngineParticles.isPlaying){
+            leftEngineParticles.Play();
         }
     }
 
@@ -79,6 +98,12 @@ public class Movement : MonoBehaviour
         rb.freezeRotation = true; //freezing rotation so we can manually rotate
         transform.Rotate(Vector3.forward * Time.deltaTime * rocketRotation);
         rb.freezeRotation = false; //unfreezing rotation so the physics can take over
+    }
+
+    private void StopRotation()
+    {
+        leftEngineParticles.Stop();
+        rightEngineParticles.Stop();
     }
 }
 
