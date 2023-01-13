@@ -45,11 +45,11 @@ public class Movement : MonoBehaviour
     private void ProcessRotation()
     {
         if(Input.GetKey(KeyCode.D)){
-            RotateLeft();
+            RotateRight();
         }
         
         else if(Input.GetKey(KeyCode.A)){
-            RotateRight();
+            RotateLeft();
         }
         
         else{
@@ -75,21 +75,21 @@ public class Movement : MonoBehaviour
         mainEngineParticles.Stop();
     }
 
-    private void RotateLeft()
-    {
-        // transform.Rotate(Vector3.forward * Time.deltaTime * rotationRight); // (0, 0, 1)
-        ApplyRotation(rocketRotation);
-        if(!rightEngineParticles.isPlaying){
-            rightEngineParticles.Play();        
-        }
-    }
-
     private void RotateRight()
     {
         // transform.Rotate(Vector3.back * Time.deltaTime * rotationLeft); // (0, 0, -1)
         ApplyRotation(-rocketRotation);
         if(!leftEngineParticles.isPlaying){
             leftEngineParticles.Play();
+        }
+    }
+
+    private void RotateLeft()
+    {
+        // transform.Rotate(Vector3.forward * Time.deltaTime * rotationRight); // (0, 0, 1)
+        ApplyRotation(rocketRotation);
+        if(!rightEngineParticles.isPlaying){
+            rightEngineParticles.Play();        
         }
     }
 
