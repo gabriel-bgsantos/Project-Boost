@@ -20,9 +20,13 @@ public class Oscillator : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //watch class 58 again for a better undertanding
+        //watch class 58~59 again for a better undertanding
+        
+        if (period <= Mathf.Epsilon) { return; } //Mathf.Epsilon is the lowest float possible, so it's more secure to do this way in order to prevent errors
+        //if (period == 0f) { return; } //this is wrong because it's hard for two floats to be COMPLETELY 100% equal, they may vary in decimal places
+        
         float cycles = Time.time / period; // continually growing over time
-        const float tau = Mathf.PI * 2; // constant value of 6;283 (radian)
+        const float tau = Mathf.PI * 2; // constant value of 6.283 (radian)
         float rawSinWave = Mathf.Sin(cycles * tau); // going from -1 to 1
 
         movementFactor = (rawSinWave + 1f) / 2; // recalculated to go from 0 to 1, so it's cleaner
